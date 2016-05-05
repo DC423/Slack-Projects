@@ -31,6 +31,7 @@ min = int(strftime("%M")) - 5
 if min < 0:
         min = 60 - abs(min)
         hour = str(int(hour) - 1)
+min = "{0:0=2d}".format(min)
 # pull the length of the json list
 len = len(data)
 # length - 1 for adjustment to start at 0
