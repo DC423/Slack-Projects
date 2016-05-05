@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import os
-import time
 import json
+import urllib
 from slacker import Slacker
 from random import randint
 # setup slacker
@@ -18,14 +18,21 @@ users = response.body['members']
 numUsers = len(users)
 # select the user you want to randomly tell to FO
 while True:
-        fouser = randint(0, numUsers -1)
-        url = "https://slack.com/api/users.getPresence?token={}&user={}&pretty=1".format(API, users[fouser]['id'])
-        response = os.popen('curl -s {}'.format(url)).read()
-        lastOnline = json.loads(response)
-        epoch = int(time.time())
-        # this should limit it to users online, or have been online in the last 5 min
-        if epoch > lastOnline['last_activity'] - 300:
-                break
+	fouser = randint(0, numUsers -1)
+	url = "https://slack.com/api/users.getPresence?token={}&user={}&pretty=1".format(API, users[fouser]['id'])
+	u = urllib.urlopen(url)
+	response = u.read()
+	presence = json.loads(response)
+	# if presense is active, and its not a bot we have our victim
+	if "active" in  presence['presence'] and "bot" not in users[fouser]['name']:
+		break	
+# use the slack API to query open an IM to the user to send them the message later
+url = "https://slack.com/api/im.open?token={}&user={}&pretty=1".format(API, users[fouser]['id'])
+u = urllib.urlopen(url)
+response = u.read()
+user_im = json.loads(response)
+im_id = user_im['channel']['id']
+
 # select the other use that the message will come from
 otheruser = randint(0, numUsers -1)
 # set up the url request and send it into curl
@@ -33,13 +40,25 @@ url = "\'http://foaas.com/{}/@{}/{}\' -H \'Accept: application/json\'".format(co
 response = os.popen('curl -s {}'.format(url)).read()
 # pares the json response
 data = json.loads(response)
-# select two random numbers
-num1 = randint(1,10)
-num2 = randint(1,10)
-# if those numbers equal each other then post FO mesage
+# Roulette style 
+num1 = randint(1,6)
+num2 = randint(1,6)
+# If numbers are equal do something offinsive 
 if num1 == num2:
-        # post the message to slack :)
-        slack.chat.post_message('#general', "*_" + data['message'] + "_* " + data['subtitle'], username="FOAASbot", icon_emoji=":rage1:")
-# if not spread the love
+	print "test"
+	# post the message to slack :)
+	slack.chat.post_message('#general', "*_" + data['message'] + "_* " + data['subtitle'], username="FOAASbot", icon_emoji=":rage1:")
+	slack.chat.post_message(im_id, "*_" + data['message'] + "_* " + data['subtitle'], username="FOAASbot", icon_emoji=":rage1:")
 else:
-        slack.chat.post_message('#general', ":heart_eyes_cat:", username="FOAASbot", icon_emoji=":rage1:")
+	# User the username in a positive Chuck Norris esq joke
+	url = "http://api.icndb.com/jokes/random?firstName={}&lastName= ".format(users[fouser]['name'])
+	u = urllib.urlopen(url)
+	response = u.read()
+	# pares the json response
+	data = json.loads(response)
+	slack.chat.post_message(im_id, data['value']['joke'].replace(" Norris",""), username="ChuckNorrisbot", icon_emoji=":chuck:")
+	slack.chat.post_message('#general', data['value']['joke'].replace(" Norris",""), username="ChuckNorrisbot", icon_emoji=":chuck:")
+# close the IM message
+url = "https://slack.com/api/im.close?token={}&user={}&pretty=1".format(API, users[fouser]['id'])
+u = urllib.urlopen(url)
+response = u.read()
