@@ -30,7 +30,7 @@ min = int(strftime("%M")) - 5
 # if after the -5 we have a negative number then we need to make this the previous hour
 if min < 0:
         min = 60 - abs(min)
-        hour = str(int(hour - 1))
+        hour = str(int(hour) - 1)
 # pull the length of the json list
 len = len(data)
 # length - 1 for adjustment to start at 0
