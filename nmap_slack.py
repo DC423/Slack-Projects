@@ -40,6 +40,7 @@ def do_scan(targets, options):
 # print scan results from a nmap report
 def print_scan(nmap_report):
     forreturn = ""
+    # Custom Nmap starting message, this wad done to add DC423, this can be changed to your own slack
     forreturn = "Starting Nmap DC423 ( http://nmap.org ) at {}".format(nmap_report.started)
 
     for host in nmap_report.hosts:
