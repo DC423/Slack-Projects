@@ -119,9 +119,6 @@ while True:
                         	# set count and nogo to 0
 				count = 0
 				nogo = 0
-				# never allow giminy
-				if username == "giminy":
-					nogo = 1
 				# argument checking for a few things, just to do more sanitizing
 				while count < len(notallowed):
 					if notallowed[count] in j_result['text']:
@@ -131,7 +128,7 @@ while True:
 				# if there are more than 3 arguments then we won't do anything
 				if len(j_result['text'].split()) > 3:
 					nogo = 1
-				# if it was giminy, or not allowed chars, or too many arguments
+				# not allowed chars, or too many arguments
 				if nogo == 1:
 					response = post_slack(API,chid,"Try Again!!")
 				# if there is only two (aka run nmap) was all that was entered, then print usage
@@ -153,8 +150,7 @@ while True:
 						pattern = r"((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)([ (\[]?(\.|dot)[ )\]]?(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3})"
 						# find all the ips in the string
 						ips = [each[0] for each in re.findall(pattern, cmd)]
-						# limit it to just one IP because giminy can't let us have nice things and then shit posts
-                        			# about it on twitter
+						# limit it to just one IP for sake of time
 						cmd = ips[0]
 					# print a date time stamp, domain|IP, and the user that entered it
 					print str(datetime.now()) + " -- " + cmd + " ran by " + username
