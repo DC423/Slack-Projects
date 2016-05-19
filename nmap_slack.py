@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# Author: Stephen Hilt
+# version: 0.0.0.0.0.0.0.1
 import time
 import json
 import os
