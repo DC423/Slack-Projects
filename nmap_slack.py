@@ -113,12 +113,12 @@ while True:
 			if "run nmap" in j_result['text'] and "USAGE" not in j_result['text']:
 				# find the user nme based off the user id of who submitted the scan
 				url = "https://slack.com/api/users.info?token={}&user={}&pretty=1".format(API,j_result['user'])
-        u = urllib.urlopen(url)
-        response = u.read()
-        response = json.loads(response)
-        user = response['user']
-        username = user['name']
-        # initilize count and nogo to 0
+				u = urllib.urlopen(url)
+				response = u.read()
+				response = json.loads(response)
+				user = response['user']
+				username = user['name']
+				# initilize count and nogo to 0
 				count = 0
 				nogo = 0
 				# see if any not allowed strings are in the submitted command
@@ -165,12 +165,12 @@ while True:
 					# if the scan was a success print the results to slack channel
 					# as above this can be changed to a dm by changing chid to j_result['user']
 					if report:
-          	response = post_slack(API,chid, "Result:\n```" + print_scan(report) + "```")
-        	# else the scan produced no results (likely there was an error)
-        	# change to DM by changing chid to j_result['user']
-    			else:
-        	  response = post_slack(API,chid, "Result:\n`No Results Returned`")
-          # to remind everyon who just types nmap that Trinity uses Nmap
+          					response = post_slack(API,chid, "Result:\n```" + print_scan(report) + "```")
+        				# else the scan produced no results (likely there was an error)
+        				# change to DM by changing chid to j_result['user']
+    					else:
+        	  				response = post_slack(API,chid, "Result:\n`No Results Returned`")
+          		# to remind everyon who just types nmap that Trinity uses Nmap
 			elif "nmap" in j_result['text'] and "Running" not in j_result['text'] and "nmap.org" not in j_result['text'] and "USAGE" not in j_result['text']:
 				      resposne = post_slack(API,chid,"Trinity uses Nmap")
 
