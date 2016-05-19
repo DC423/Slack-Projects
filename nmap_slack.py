@@ -40,6 +40,8 @@ def do_scan(targets, options):
 # libnmap's exampes
 def print_scan(nmap_report):
     forreturn = ""
+    # changed value to DC423 from the original, if you want it to print the version number
+    # change it back per https://goo.gl/anLc60
     forreturn = "Starting Nmap DC423 ( http://nmap.org ) at {}".format(nmap_report.started)
 
     for host in nmap_report.hosts:
