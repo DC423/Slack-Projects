@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# Author: Stephen Hilt
+#
 import os
 import json
 import urllib
