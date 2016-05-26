@@ -10,6 +10,8 @@ DC423 Project page for current and past projects.
 
 4) rss_slack.py - Read from a RSS feed and post to slack, this provides more flexability than /feed command
 
+5) shodan_ host_slack.py -- lookup detailed host information from Slack within Shodan
+
 All projects posted are CC BY-NC-SA
 
 https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
