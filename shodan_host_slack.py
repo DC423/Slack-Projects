@@ -164,12 +164,12 @@ while True:
 			if "run shodan" in j_result['text'] and "USAGE" not in j_result['text']:
 			  # lookup the user who issued the command
 				url = "https://slack.com/api/users.info?token={}&user={}&pretty=1".format(API,j_result['user'])
-        u = urllib.urlopen(url)
-        response = u.read()
-        response = json.loads(response)
-        user = response['user']
-        username = user['name']
-        # set nogo to 0
+        			u = urllib.urlopen(url)
+        			response = u.read()
+        			response = json.loads(response)
+        			user = response['user']
+        			username = user['name']
+				 # set nogo to 0
 				nogo = 0
 				# get the IP address from the string
 				cmd = j_result['text'].split(" ")[2]	
@@ -199,7 +199,7 @@ while True:
 				else:
 					print str(datetime.now()) + " -- " + cmd + " ran by " + username
 					response = post_slack(API,chid, "Looking up Host in Shodan *`" + cmd + "`* ... This could take a while")
-        	try:
+        				try:
 						result = shodan_host(cmd)
 						response = post_slack(API,chid, "Result:\n```" + result + "\n https://www.shodan.io/host/{}```".format(cmd))
 					except:
