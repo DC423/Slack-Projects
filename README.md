@@ -12,6 +12,8 @@ DC423 Project page for current and past projects.
 
 5) shodan_ host_slack.py -- lookup detailed host information from Slack within Shodan
 
+6) From @sjhilt - https://github.com/sjhilt/scripts/blob/master/shodan_slack.py - random images from shodan posted to a Slack Channel. 
+
 All projects posted are CC BY-NC-SA
 
 https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
