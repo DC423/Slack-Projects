@@ -177,7 +177,7 @@ while True:
 				if len(j_result['text'].split()) > 3:
 					nogo = 1
 				# if http is in the text, then a domain name was entered
-        elif "http" in j_result['text']:
+        			elif "http" in j_result['text']:
 					nogo = 1
 				# if there is a / in the command CIDR was passed in
 				elif "/" in j_result['text']:
