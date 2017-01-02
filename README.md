@@ -1,6 +1,6 @@
 # Projects
 
-DC423 Project page for current and past projects. 
+DC423 Project page for current and past projects.
 
 1) foass_slack.py - Tell a random person away how you feel
 
@@ -12,7 +12,9 @@ DC423 Project page for current and past projects.
 
 5) shodan_ host_slack.py -- lookup detailed host information from Slack within Shodan
 
-6) From @sjhilt - https://github.com/sjhilt/scripts/blob/master/shodan_slack.py - random images from shodan posted to a Slack Channel. 
+6) From @sjhilt - https://github.com/sjhilt/scripts/blob/master/shodan_slack.py - random images from shodan posted to a Slack Channel.
+
+7) triviabot - Basic trivia bot from IRC converted to Slack and driven by a SQLite database
 
 All projects posted are CC BY-NC-SA
 
