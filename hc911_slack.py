@@ -12,10 +12,10 @@ import urllib
 import sys
 # replace slacker with my own postMessage function
 def post_slack(API,chid,message,username):
-        url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,":police_car:")
-        u = urllib.urlopen(url)
-        response = u.read()
-        return response
+    url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,":police_car:")
+    u = urllib.urlopen(url)
+    response = u.read()
+    return response
 # new hc911.org link, changes from json to table format
 url = "https://www.hc911.org/active_incidents/echo_public_incidents.php"
 # Slack API key
@@ -31,15 +31,15 @@ hour = strftime("%I").lstrip('0')
 t4hour = strftime("%H")
 #if its over 11, then its pm else am
 if int(t4hour) > 11:
-        mn = "PM"
+    mn = "PM"
 else:
-        mn = "AM"
+    mn = "AM"
 # minute minus 5, the time between 'created_str' and current time is around a 5min delta
 min = int(strftime("%M")) -5
 # if after the -5 we have a negative number then we need to make this the previous hour
 if min < 0:
-        min = 60 - abs(min)
-        hour = str(int(hour) - 1)
+    min = 60 - abs(min)
+    hour = str(int(hour) - 1)
 min = "{0:0=2d}".format(min)
 # parse the table
 table = etree.HTML(response).find("body/table")
