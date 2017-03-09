@@ -12,7 +12,7 @@ import urllib
 import sys
 # replace slacker with my own postMessage function
 def post_slack(API,chid,message,username):
-        url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&pretty=1".format(API,chid,message,username)
+        url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,":police_car:")
         u = urllib.urlopen(url)
         response = u.read()
         return response
