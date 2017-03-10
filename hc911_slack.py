@@ -8,21 +8,30 @@
 ########################################
 from time import strftime
 from lxml import etree
+from BeautifulSoup import BeautifulSoup
 import urllib
 import sys
 # replace slacker with my own postMessage function
-def post_slack(API,chid,message,username):
-    url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,":police_car:")
-    u = urllib.urlopen(url)
-    response = u.read()
-    return response
+def post_slack(API,chid,message,username,icon):
+	url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,icon)
+	u = urllib.urlopen(url)
+	response = u.read()
+	return response
 # new hc911.org link, changes from json to table format
 url = "https://www.hc911.org/active_incidents/echo_public_incidents.php"
 # Slack API key
 API = 'API_HERE'
-Get and read the Table from hc911.org
+# Get and read the Table from hc911.org
 u = urllib.urlopen(url)
 response = u.read()
+# remove some of the HTML tags to get only the address of the event
+soup = BeautifulSoup(response)
+for a in soup.findAll('a'): 
+    del a['href']
+response = str(soup)
+response = response.replace("<a target=\"_blank\"", "")
+response = response.replace("<a target=\"_blank\">", "")
+response = response.replace("</a>><img src=\"./active_incidents/map-marker-icon.png\" /></a>","")
 # table tags is added to help parsing
 response = "<table>" + response + "</table>"
 # create the hour
@@ -57,7 +66,9 @@ for row in rows:
     # Who the call is dispached to
     responder = str(values[3])
     # address of the event
-    address = str(values[6])
+    address = str(values[5].strip(">")) 
+    # rough area of town to give you an idea of where exact address is
+    area = str(values[6])
     # if they are enroute, on site, etc
     event = str(values[2])
     # the event type: Accident, Shots fired, etc
@@ -67,8 +78,14 @@ for row in rows:
     if newtime[1] == min:
         if newtime[0] == hour:
             if date[2] == mn:
-                message = time +  " _*" + type + "*_ - " + event + " - " + responder + " - _* " + address + "*_"
-                post_slack(API,'YOUR CHANNEL ID HERE', message, "hc911bot")
+                message = time +  " _*" + type + "*_ - " + event + " - " + responder + " - _* " + area + " (" + address + ")*_"
+                if "FD" in responder: 
+                    icon = ":fire_engine:"
+                elif "EMS" in responder:
+                    icon = ":ambulance:"
+                else: 
+                    icon = ":police_car:"
+                post_slack(API,'C4FFZV0QG', message, responder, icon)
 
 
 
