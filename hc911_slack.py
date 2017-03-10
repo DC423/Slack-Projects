@@ -68,7 +68,7 @@ for row in rows:
         if newtime[0] == hour:
             if date[2] == mn:
                 message = time +  " _*" + type + "*_ - " + event + " - " + responder + " - _* " + address + "*_"
-                post_slack(API,'C4FFZV0QG', message, "hc911bot")
+                post_slack(API,'YOUR CHANNEL ID HERE', message, "hc911bot")
 
 
 
