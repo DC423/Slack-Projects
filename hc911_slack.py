@@ -2,7 +2,7 @@
 #
 #  Author: Stephen Hilt
 #  Purpose: To convert hc911.org alerts to slack messages
-#  version: 0.2 
+#  version: 0.2.2
 #  Notes: Fixed issue with new hc911.org where the JSON file is no longer in use. 
 #
 ########################################
@@ -25,6 +25,7 @@ API = 'API_HERE'
 u = urllib.urlopen(url)
 response = u.read()
 # remove some of the HTML tags to get only the address of the event
+# pip install beautifulsoup
 soup = BeautifulSoup(response)
 for a in soup.findAll('a'): 
     del a['href']
@@ -51,6 +52,7 @@ if min < 0:
     hour = str(int(hour) - 1)
 min = "{0:0=2d}".format(min)
 # parse the table
+# apt-get install lxml
 table = etree.HTML(response).find("body/table")
 # iterate rows
 rows = iter(table)
