@@ -13,10 +13,10 @@ import urllib
 import sys
 # replace slacker with my own postMessage function
 def post_slack(API,chid,message,username,icon):
-	url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,icon)
-	u = urllib.urlopen(url)
-	response = u.read()
-	return response
+    url = "https://slack.com/api/chat.postMessage?token={}&channel={}&text={}&username={}&icon_emoji={}&pretty=1".format(API,chid,message,username,icon)
+    u = urllib.urlopen(url)
+    response = u.read()
+    return response
 # new hc911.org link, changes from json to table format
 url = "https://www.hc911.org/active_incidents/echo_public_incidents.php"
 # Slack API key
