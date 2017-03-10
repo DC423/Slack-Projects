@@ -87,7 +87,7 @@ for row in rows:
                     icon = ":ambulance:"
                 else: 
                     icon = ":police_car:"
-                post_slack(API,'C4FFZV0QG', message, responder, icon)
+                post_slack(API,'YOUR ROOM ID', message, responder, icon)
 
 
 
