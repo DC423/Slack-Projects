@@ -28,7 +28,8 @@ if userid == 'NULL':
 	sys.exit()
 
 # list all files from user (only 100 at a time) 
-urllist = 'https://slack.com/api/files.list?token={}&count=100&user={}&pretty=1'.format(token, userid)
+days = 30
+urllist = 'https://slack.com/api/files.list?token={}&count=100&user={}&pretty=1'.format(token, userid, days)
 data = requests.get(urllist).json()
 # if there was files then parse the files and delete them 
 while data['ok'] == True:	
