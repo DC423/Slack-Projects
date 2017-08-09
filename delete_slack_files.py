@@ -1,6 +1,9 @@
-# DC423 Code to Remove ALL files from a user 
-# This can be altered to do it with time constraints but for now
-# Nuke all files from Slack :) 
+# DC423 Code to Remove ALL files from a user in slack
+# 
+#
+#
+#
+#
 import requests
 import sys
 
